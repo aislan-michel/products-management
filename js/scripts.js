@@ -18,13 +18,10 @@ const utils = {
 const extensions = {
      string: {
           isNullOrEmpty: (val) => {
-               const isString = () => typeof val === 'string' || val instanceof String;
                const isNull = () => val === null;
                const isEmpty = () => val === '';
 
                switch (val) {
-                    case !isString():
-                         return true;
                     case isNull():
                          return true;
                     case isEmpty():
