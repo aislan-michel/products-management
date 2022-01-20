@@ -6,5 +6,5 @@ a simple crud of products
 
 - HTML5
 - CSS
-- Boostrap
+- Bootstrap
 - Javascript (es6+)

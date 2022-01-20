@@ -11,15 +11,15 @@ class Product {
 
      validate() {
           if (validations.string.isNullOrEmpty(this.name)) {
-               this.notifications.push("name invalid");
+               this.notifications.push({ key: "name", message: "name invalid" });
           }
 
           if (validations.string.isNullOrEmpty(this.category)) {
-               this.notifications.push("category invalid");
+               this.notifications.push({ key: "category", message: "category invalid" });
           }
 
           if (!validations.number.isGreaterThanZero(this.price)) {
-               this.notifications.push("price invalid");
+               this.notifications.push({ key: "price", message: "price invalid" });
           }
 
           this.isValid = this.notifications.length === 0;
