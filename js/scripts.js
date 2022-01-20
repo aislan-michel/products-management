@@ -21,14 +21,7 @@ const extensions = {
                const isNull = () => val === null;
                const isEmpty = () => val === '';
 
-               switch (val) {
-                    case isNull():
-                         return true;
-                    case isEmpty():
-                         return true;
-                    default:
-                         return false;
-               }
+               return isNull() || isEmpty();
           }
      },
      number: {
