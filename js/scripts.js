@@ -18,22 +18,21 @@ const utils = {
 const extensions = {
      string: {
           isNullOrEmpty: (val) => {
-               if (!isString(val)) {
-                    return true;
+               const isString = () => typeof val === 'string' || val instanceof String;
+               const isNull = () => val === null;
+               const isEmpty = () => val === '';
+
+               switch (val) {
+                    case !isString():
+                         return true;
+                    case isNull():
+                         return true;
+                    case isEmpty():
+                         return true;
+                    default:
+                         return false;
                }
-
-               if (val === null) {
-                    return true;
-               }
-
-               if (val === '') {
-                    return true;
-               }
-
-               return false;
-
-          },
-          isString: () => typeof myVar === 'string' || myVar instanceof String;
+          }
      },
      number: {
           isGreaterThanZero: (num) => {
