@@ -11,24 +11,66 @@ const repository = {
 }
 
 const utils = {
-     randomNumber: () => Math.floor(Math.random() * 256324568)
+     randomNumber: () => Math.floor(Math.random() * 256324568),
+     goToReadPage: () => window.location.href = '/pages/read.html'
+}
+
+const extensions = {
+     string: {
+          isNullOrEmpty: (val) => {
+               if (!isString(val)) {
+                    return true;
+               }
+
+               if (val === null) {
+                    return true;
+               }
+
+               if (val === '') {
+                    return true;
+               }
+
+               return false;
+
+          },
+          isString: () => typeof myVar === 'string' || myVar instanceof String;
+     },
+     number: {
+          isGreaterThanZero: (num) => {
+               return num > 0;
+          }
+     }
 }
 
 const operations = {
      create: () => {
-          debugger;
-          let products = repository.get();
+          const { string } = extensions;
 
-          const id = utils.randomNumber();
           const name = document.getElementById("name").value;
+
+          if (string.isNullOrEmpty(name)) {
+               //retorna erro;
+          }
+
           const category = document.getElementById("category").value;
+
+          if (string.isNullOrEmpty(category)) {
+               //retorna erro;
+          }
+
           const price = document.getElementById("price").value;
 
+          const id = utils.randomNumber();
+
           const product = { id, name, category, price };
+
+          let products = repository.get();
 
           products.push(product);
 
           repository.set(products);
+
+          utils.goToReadPage();
      },
      read: () => {
           return repository.get();
