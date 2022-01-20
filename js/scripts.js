@@ -22,6 +22,7 @@ class Product {
           this.price = price;
           this.isValid = false;
           this.notifications = [];
+          this.validate();
 
      }
 
@@ -42,6 +43,39 @@ class Product {
      }
 }
 
+class Repository {
+     constructor() {
+          this.localStorageKey = "uma-chave-qualquer";
+     }
+
+     get() {
+          return JSON.parse(localStorage.getItem(this.localStorageKey)) ?? [{
+               id: 1,
+               name: "computer",
+               category: "eletronic",
+               price: 1999.99
+          }];
+     }
+     set(products) {
+          localStorage.setItem(this.localStorageKey, JSON.stringify(products));
+     }
+}
+
+class Service {
+     constructor() {
+          this.Repository = new Repository();
+     }
+
+     create(product) {
+          debugger;
+          let products = this.Repository.get();
+
+          products.push(product);
+
+          this.Repository.set(products);
+     }
+}
+
 const utils = {
      randomNumber: () => Math.floor(Math.random() * 256324568),
      navigation: {
@@ -52,36 +86,24 @@ const utils = {
      }
 }
 
-const repository = {
-     localStorageKey: "uma-chave-qualquer",
-     get: () => JSON.parse(localStorage.getItem(this.localStorageKey)) ?? [{
-          id: 1,
-          name: "computer",
-          category: "eletronic",
-          price: 1999.99
-     }],
-     set: (products) => localStorage.setItem(this.localStorageKey, JSON.stringify(products))
-}
 
 const operations = {
      create: (name, category, price) => {
           const product = new Product(name, category, price);
 
-          product.validate();
-
           if (!product.isValid) {
                return product;
           }
 
-          let products = repository.get();
+          const service = new Service();
 
-          products.push(product);
-
-          repository.set(products);
+          service.create(product);
 
           return product;
      },
      read: () => {
+          const repository = new Repository();
+
           return repository.get();
      },
      update: () => { },
