@@ -7,7 +7,6 @@ class Product {
           this.isValid = false;
           this.notifications = [];
           this.validate();
-
      }
 
      validate() {
@@ -27,9 +26,9 @@ class Product {
      }
 }
 
-class Repository {
+class ProductRepository {
      constructor() {
-          this.localStorageKey = "uma-chave-qualquer";
+          this.localStorageKey = "product-key";
      }
 
      get() {
@@ -45,18 +44,17 @@ class Repository {
      }
 }
 
-class Service {
+class ProductService {
      constructor() {
-          this.Repository = new Repository();
+          this.repository = new ProductRepository();
      }
 
      create(product) {
-          debugger;
-          let products = this.Repository.get();
+          let products = this.repository.get();
 
           products.push(product);
 
-          this.Repository.set(products);
+          this.repository.set(products);
      }
 }
 
@@ -86,7 +84,6 @@ const utils = {
      }
 }
 
-
 const operations = {
      create: (name, category, price) => {
           const product = new Product(name, category, price);
@@ -95,14 +92,14 @@ const operations = {
                return product;
           }
 
-          const service = new Service();
+          const service = new ProductService();
 
           service.create(product);
 
           return product;
      },
-     read: () => {
-          const repository = new Repository();
+     readAll: () => {
+          const repository = new ProductRepository();
 
           return repository.get();
      },
