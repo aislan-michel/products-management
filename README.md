@@ -1,5 +1,6 @@
-# crud-products
-a simple crud of products 
+## products management
+
+a simple crud of products
 
 ## stack
 
