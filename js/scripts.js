@@ -84,6 +84,9 @@ const utils = {
      }
 }
 
+const service = new ProductService();
+const repository = new ProductRepository();
+
 const operations = {
      create: (name, category, price) => {
           const product = new Product(name, category, price);
@@ -92,16 +95,14 @@ const operations = {
                return product;
           }
 
-          const service = new ProductService();
-
           service.create(product);
 
           return product;
      },
-     readAll: () => {
-          const repository = new ProductRepository();
+     read: {
+          all: () => repository.get(),
+          one: (id) => repository.get().find(x => x.id == id)
 
-          return repository.get();
      },
      update: () => { },
      delete: () => { }
