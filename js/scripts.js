@@ -1,19 +1,3 @@
-const validations = {
-     string: {
-          isNullOrEmpty: (val) => {
-               const isNull = () => val === null;
-               const isEmpty = () => val === '';
-
-               return isNull() || isEmpty();
-          }
-     },
-     number: {
-          isGreaterThanZero: (num) => {
-               return num > 0;
-          }
-     }
-}
-
 class Product {
      constructor(name, cateogry, price) {
           this.id = utils.randomNumber();
@@ -73,6 +57,22 @@ class Service {
           products.push(product);
 
           this.Repository.set(products);
+     }
+}
+
+const validations = {
+     string: {
+          isNullOrEmpty: (val) => {
+               const isNull = () => val === null;
+               const isEmpty = () => val === '';
+
+               return isNull() || isEmpty();
+          }
+     },
+     number: {
+          isGreaterThanZero: (num) => {
+               return num > 0;
+          }
      }
 }
 
