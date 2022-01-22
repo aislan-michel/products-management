@@ -50,9 +50,6 @@ class ProductRepository {
      set(products) {
           localStorage.setItem(this.localStorageKey, JSON.stringify(products));
      }
-     removeAll() {
-          localStorage.removeItem(this.localStorageKey);
-     }
 }
 
 class ProductService {
@@ -86,8 +83,6 @@ class ProductService {
      }
 
      delete(id) {
-
-          debugger;
           let products = this.repository.get();
 
           products = products.filter(x => x.id !== Number(id));
@@ -106,9 +101,7 @@ const validations = {
           }
      },
      number: {
-          isGreaterThanZero: (num) => {
-               return num > 0;
-          }
+          isGreaterThanZero: (num) => num > 0
      }
 }
 
@@ -119,6 +112,29 @@ const utils = {
      },
      DOM: {
           getValueById: (id) => document.getElementById(id).value
+     }
+}
+
+const notificationHelper = {
+     showNotifications: (notifications) => {
+          notifications.forEach(n => {
+               let divOfNotification = document.getElementById(`${n.key}-notification`);
+
+               divOfNotification.innerText = n.message;
+          });
+     },
+     resetNotifications: () => {
+          const ids = [
+               "name",
+               "category",
+               "price"
+          ];
+
+          ids.forEach(x => {
+               let divOfNotification = document.getElementById(`${x}-notification`);
+
+               divOfNotification.innerText = '';
+          });
      }
 }
 
@@ -147,8 +163,6 @@ const operations = {
 
           product.id = id;
 
-          console.log(product)
-
           if (!product.isValid) {
                return product;
           }
@@ -159,31 +173,5 @@ const operations = {
      },
      delete: (id) => {
           service.delete(id);
-     }
-}
-
-const notificationHelper = {
-     resetNotifications: () => {
-          const ids = [
-               "name",
-               "category",
-               "price"
-          ];
-
-          ids.forEach(x => {
-               let divOfNotification = document.getElementById(`${x}-notification`);
-
-               divOfNotification.innerText = '';
-          })
-
-     },
-     showNotifications: (notifications) => {
-          console.log(notifications);
-
-          notifications.forEach(n => {
-               let divOfNotification = document.getElementById(`${n.key}-notification`);
-
-               divOfNotification.innerText = n.message;
-          });
      }
 }
