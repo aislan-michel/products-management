@@ -12,7 +12,7 @@
           <title>Read</title>
      </head>
 
-     <body>
+     <body onload="init()">
           <header class="m-2">
                <ul class="nav nav-pills">
                     <li class="nav-item">
@@ -42,6 +42,8 @@
                     </tbody>
                </table>
           </main>
+
+
      </body>
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -49,28 +51,34 @@
           crossorigin="anonymous"></script>
      <script src="../js/scripts.js"></script>
      <script>
-          let data = operations.read.all();
+          function init() {
+               let data = operations.read.all();
 
-          let html = '';
+               let html = '';
 
-          data.forEach(({ id, name, category, price }) => {
-               html += `
-                    <tr>
-                         <th scope="row">${id}</th>
-                         <td>${name}</td>
-                         <td>${category}</td>
-                         <td>${price}</td>
-                         <td>
-                              <a class="btn btn-warning" href="./update.html?id=${id}">Update</a>
-                              <a class="btn btn-danger" href="./delete.html?id=${id}">Delete</a>
-                         </td>
-                    </tr>
-               `;
-          });
+               data.forEach(({ id, name, category, price }) => {
+                    html += `
+                         <tr>
+                              <th scope="row">${id}</th>
+                              <td>${name}</td>
+                              <td>${category}</td>
+                              <td>${price}</td>
+                              <td>
+                                   <a class="btn btn-warning" href="./update.html?id=${id}">Update</a>
+                                   <a class="btn btn-danger" href="./delete.html?id=${id}">Delete</a>
+                              </td>
+                         </tr>
+                    `;
+               });
 
-          let tbodyRef = document.getElementById('my-table').getElementsByTagName('tbody')[0];
+               let tbodyRef = document.getElementById('my-table').getElementsByTagName('tbody')[0];
 
-          tbodyRef.innerHTML = html;
+               tbodyRef.innerHTML = html;
+          }
+
+          function remove(id) {
+               operations.delete(id);
+          }
      </script>
 
 </html>

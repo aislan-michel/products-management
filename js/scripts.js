@@ -24,6 +24,14 @@ class Product {
 
           this.isValid = this.notifications.length === 0;
      }
+
+     update(product) {
+          const { name, category, price } = product;
+
+          this.name = name;
+          this.category = category;
+          this.price = price;
+     }
 }
 
 class ProductRepository {
@@ -61,22 +69,28 @@ class ProductService {
      }
 
      update(product) {
-          debugger;
           const { id, name, category, price } = product;
 
           let products = this.repository.get();
+          let productToUpdate = products.filter(x => x.id == Number(id))[0];
 
-          console.log(products);
-
-          let productToUpdate = products.filter(x => x.id !== id);
-
-          console.log(products);
+          products = products.filter(x => x.id !== Number(id));
 
           productToUpdate.name = name;
           productToUpdate.category = category;
           productToUpdate.price = price;
 
           products.push(productToUpdate);
+
+          this.repository.set(products);
+     }
+
+     delete(id) {
+
+          debugger;
+          let products = this.repository.get();
+
+          products = products.filter(x => x.id !== Number(id));
 
           this.repository.set(products);
      }
@@ -143,7 +157,9 @@ const operations = {
 
           return product;
      },
-     delete: () => { }
+     delete: (id) => {
+          service.delete(id);
+     }
 }
 
 const notificationHelper = {
